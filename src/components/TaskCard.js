@@ -37,16 +37,16 @@ const TaskCard = ({ task, onClickEvent }) => {
         flexDirection: "column",
         borderLeft: `8px solid ${priorityColors[task.priority]}`,
         borderRadius: 2,
-        padding: 1, // Reduzi o padding
-        marginBottom: 1, // Reduzi o espaçamento entre os cards
-        boxShadow: 2, // Reduzi a sombra para suavizar o design
+        padding: 1,
+        marginBottom: 1,
+        boxShadow: 2,
         backgroundColor: "#f9f9f9",
         position: "relative",
-        alignSelf: "center", // Centraliza o card horizontalmente
+        alignSelf: "center",
         cursor: "pointer",
-        transition: "transform 0.2s, box-shadow 0.2s", // Suaviza transformações
+        transition: "transform 0.2s, box-shadow 0.2s",
         "&:hover": {
-          filter: "brightness(95%)", // Aplica o efeito de blur
+          filter: "brightness(95%)",
         },
         "&:active": {
           top: '1px'
@@ -120,6 +120,7 @@ const TaskCard = ({ task, onClickEvent }) => {
                     label={file.filename}
                     variant="outlined"
                     clickable
+                    key={file.url}
                     onClick={() => downloadFile(file.url, file.filename)}
                   />
                 );

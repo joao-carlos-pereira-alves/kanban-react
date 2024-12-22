@@ -16,7 +16,6 @@ const Filter = ({ onSearch }) => {
     setDate('');
     setLocation('');
     setPriority('');
-    // onSearch({ query, date, location, priority });
   }
 
   return (
@@ -86,7 +85,7 @@ const Filter = ({ onSearch }) => {
           {/* Botão para submeter o filtro */}
           <Grid item xs={12}>
             <Box textAlign="right">
-              <Button variant="outlined" onClick={handleResetFilter}>Limpar Filtro</Button>
+              <Button variant="outlined" onClick={handleResetFilter} sx={{ marginRight: 1 }}>Limpar Filtro</Button>
               <Button variant="contained" onClick={handleSubmit}>Aplicar Filtro</Button>
             </Box>
           </Grid>

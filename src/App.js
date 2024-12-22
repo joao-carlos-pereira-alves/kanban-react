@@ -8,11 +8,11 @@ import { Box, Typography } from "@mui/material";
 const App = () => {
   const [pagination, setPagination] = useState({
     page: 1,
-    perPage: 5,
+    pageSize: 5,
     totalItems: 0,
   });
   const { loading, error, data, refetch } = useQuery(GET_TASKS, {
-    variables: { pageSize: pagination.perPage, page: pagination.page },
+    variables: { pageSize: 5, page: 1 },
   });
 
   const [tasks, setTasks] = useState([]);
@@ -38,14 +38,17 @@ const App = () => {
       clearTimeout(debounceTimer);
     }
 
-    // Cria um novo timer de debounce
     const timer = setTimeout(() => {
-      refetch({
-        page: page,
-      });
-    }, 1000); // 500ms de debounce, você pode ajustar conforme necessário
+      const filtersToSend = Object.fromEntries(
+        Object.entries(filters).filter(([key, value]) => value && value !== "")
+      );
 
-    // Armazena o timer
+      filtersToSend.page = page;
+      filtersToSend.pageSize = 5;
+
+      refetch(filtersToSend);
+    }, 500);
+
     setDebounceTimer(timer);
   };
 
@@ -53,12 +56,10 @@ const App = () => {
   const handleFilterChange = (newFilters) => {
     setFilters(newFilters);
 
-    // Limpa o timer anterior (caso haja um) e cria um novo para aplicar o debounce
     if (debounceTimer) {
       clearTimeout(debounceTimer);
     }
 
-    // Cria um novo timer de debounce
     const timer = setTimeout(() => {
       refetch({
         priority: newFilters.priority,
@@ -66,11 +67,10 @@ const App = () => {
         executionDate: newFilters.date,
         searchText: newFilters.query,
         page: pagination.page,
-        pageSize: pagination.pageSize
+        pageSize: pagination.perPage,
       });
-    }, 500); // 500ms de debounce, você pode ajustar conforme necessário
+    }, 500);
 
-    // Armazena o timer
     setDebounceTimer(timer);
   };
 
