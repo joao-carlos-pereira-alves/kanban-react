@@ -98,7 +98,10 @@ const TaskCard = ({ task, onClickEvent }) => {
                     variant="outlined"
                     clickable
                     key={file.url}
-                    onClick={() => downloadFile(file.url, file.filename)}
+                    onClick={(event) => downloadFile(event, file.url, file.filename)}
+                    sx={{
+                      marginRight: 1
+                    }}
                   />
                 );
               })}

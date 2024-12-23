@@ -1,19 +1,21 @@
-export const downloadFile = (url, filename) => {
- const link = document.createElement('a');
+export const downloadFile = (event, url, filename) => {
+  event.stopPropagation();
 
- fetch(url)
-   .then(response => response.blob())
-   .then(blob => {
-     const blobUrl = URL.createObjectURL(blob);
+  const link = document.createElement("a");
 
-     link.href = blobUrl;
-     link.download = filename;
+  fetch(url)
+    .then((response) => response.blob())
+    .then((blob) => {
+      const blobUrl = URL.createObjectURL(blob);
 
-     document.body.appendChild(link);
-     link.click();
-     document.body.removeChild(link);
+      link.href = blobUrl;
+      link.download = filename;
 
-     URL.revokeObjectURL(blobUrl);
-   })
-   .catch(error => console.error('Erro ao baixar o arquivo:', error));
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      URL.revokeObjectURL(blobUrl);
+    })
+    .catch((error) => console.error("Erro ao baixar o arquivo:", error));
 };
