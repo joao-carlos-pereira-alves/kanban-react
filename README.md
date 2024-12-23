@@ -1,9 +1,11 @@
 # Documentação do Projeto
 
-![Imagem principal do Kanban](readme_home_image.png)
-![Imagem do modal da task](readme_modal_image.png)
-
 Este projeto é uma aplicação de Kanban desenvolvida com React e Material UI, proporcionando uma interface simples e intuitiva para o gerenciamento de tarefas. Ele permite que os usuários organizem suas atividades em diferentes estágios do processo (como "A Fazer", "Em Progresso" e "Concluído").
+
+<p float="left">
+  <img src="readme_home_image.png" alt="Imagem principal do Kanban" width="45%" />
+  <img src="readme_modal_image.png" alt="Imagem do modal da task" width="45%" />
+</p>
 
 ## Estrutura de Pastas
 
