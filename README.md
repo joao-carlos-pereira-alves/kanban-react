@@ -1,70 +1,74 @@
-# Getting Started with Create React App
+# Documentação do Projeto
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Este projeto é uma aplicação de Kanban desenvolvida com React e Material UI, proporcionando uma interface simples e intuitiva para o gerenciamento de tarefas. Ele permite que os usuários organizem suas atividades em diferentes estágios do processo (como "A Fazer", "Em Progresso" e "Concluído").
 
-## Available Scripts
+## Estrutura de Pastas
 
-In the project directory, you can run:
+Abaixo segue a organização das pastas do projeto React:
 
-### `npm start`
+```
+/src
+  /components    # Componentes reutilizáveis da aplicação
+  /hooks         # Hooks personalizados
+  /utils         # Funções auxiliares
+  /api           # Integrações com o backend (API GraphQL)
+  /assets        # Arquivos estáticos (imagens, ícones, etc.)
+  /styles        # Estilização global e temas
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Bibliotecas Utilizadas
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+As principais bibliotecas utilizadas no projeto foram:
 
-### `npm test`
+- **React**: Biblioteca base para criação de interfaces.
+- **Material UI**: Para estilização e componentes prontos, como botões, formulários e layouts.
+- **Apollo Client**: Para consumo e cache de dados da API GraphQL.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Decisões Técnicas Relevantes
 
-### `npm run build`
+1. **Material UI**: Escolhido para acelerar o desenvolvimento da interface e garantir um design responsivo e moderno.
+2. **Apollo Client**: Utilizado para facilitar a integração com o backend em GraphQL, permitindo gerenciamento de estados e cache automático.
+3. **Estrutura Modular**: A separação em componentes e páginas foi feita para garantir maior reutilização de código e facilidade de manutenção.
+4. **Envíronment Variables**: Implementado o uso da variável `REACT_APP_BACKEND_URL` para configurar a URL do servidor backend, garantindo flexibilidade entre ambientes de desenvolvimento e produção.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Inicialização do Projeto
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Para inicializar o projeto localmente, siga os passos abaixo:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+1. Clone o repositório:
 
-### `npm run eject`
+   ```bash
+   git clone https://github.com/joao-carlos-pereira-alves/kanban-react.git
+   ```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+2. Navegue até o diretório do projeto:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+   ```bash
+   cd kanban-react
+   ```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+3. Instale as dependências:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+   ```bash
+   npm install
+   ```
 
-## Learn More
+4. Adicione o arquivo `.env` na raiz do projeto contendo a seguinte variável:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+   ```env
+   REACT_APP_BACKEND_URL=http://localhost:4000/api/graphql
+   ```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+   > Caso não seja configurada, o projeto irá assumir `http://localhost:4000/api/graphql` como padrão.
 
-### Code Splitting
+5. Inicie o servidor de desenvolvimento:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+   ```bash
+   npm start
+   ```
 
-### Analyzing the Bundle Size
+6. Acesse o projeto no navegador através de:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+   ```
+   http://localhost:3000
+   ```
