@@ -13,6 +13,7 @@ import TaskCard from "./TaskCard";
 import Filter from "./Filter";
 import PaginatedComponent from "./Pagination";
 import TaskDetailsModal from "./TaskDetailsModal";
+import { applyFilters, groupTasksByStatus } from "../utils/taskUtils";
 
 const KanbanBoard = ({
   tasks,
@@ -37,37 +38,14 @@ const KanbanBoard = ({
   }, [tasks]);
 
   const updateFilters = (newFilters) => {
-    // Filtra os novos filtros para remover entradas com valores vazios ou nulos
-    const filteredNewFilters = Object.fromEntries(
-      Object.entries(newFilters).filter(
-        ([key, value]) => value !== null && value !== ""
-      )
-    );
+    const { filteredTasks, filteredNewFilters } = applyFilters(tasks, newFilters);
+    setFilteredTasks(filteredTasks);
+    setFilters((prevFilters) => ({ ...prevFilters, ...filteredNewFilters }));
 
-    // Atualiza o estado dos filtros apenas se houver mudanças
-    setFilters((prevFilters) => {
-      // Se houver filtros novos, aplicamos as alterações, senão mantemos os antigos
-      return {
-        ...prevFilters,
-        ...filteredNewFilters,
-      };
-    });
-
-    // Chama a função do pai para requisitar as tarefas filtradas
-    if (Object.keys(filteredNewFilters).length > 0) {
-      onFilterChange(filteredNewFilters);
-    } else {
-      onFilterChange({});
-    }
+    onFilterChange(Object.keys(filteredNewFilters).length > 0 ? filteredNewFilters : {});
   };
 
-  const taskColumns = {
-    "A fazer": filteredTasks.filter((task) => task.status === "to_do"),
-    "Em andamento": filteredTasks.filter(
-      (task) => task.status === "in_progress"
-    ),
-    Concluído: filteredTasks.filter((task) => task.status === "finished"),
-  };
+  const taskColumns = groupTasksByStatus(filteredTasks);
 
   const handleOpenModal = (task) =>
     setShowTaskDialog({ open: true, task: task });
@@ -119,7 +97,7 @@ const KanbanBoard = ({
                         <Skeleton />
                         <Skeleton
                           variant="rectangular"
-                          width={'100%'}
+                          width={"100%"}
                           height={118}
                         />
                       </>
@@ -139,7 +117,7 @@ const KanbanBoard = ({
           </Grid>
         </Box>
         <PaginatedComponent
-          totalItems={pagination.totalItems} // Supondo que a API retorne o total de itens
+          totalItems={pagination.totalItems}
           itemsPerPage={pagination.perPage}
           onPageChange={onPageChange}
         />

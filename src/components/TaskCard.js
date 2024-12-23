@@ -1,35 +1,12 @@
 import React from "react";
 import { Card, CardContent, Typography, Box, Grid } from "@mui/material";
 import Chip from "@mui/material/Chip";
-import DownloadIcon from "@mui/icons-material/Download"; // Ícone de download
+import DownloadIcon from "@mui/icons-material/Download";
+import { truncateText } from "../utils/textUtils";
+import { mapExecutionLocation, mapPriority, priorityColors } from "../utils/mappings";
 import { downloadFile } from "../api/downloadFile";
 
 const TaskCard = ({ task, onClickEvent }) => {
-  const priorityColors = {
-    low: "#4caf50", // Green
-    high: "#ff9800", // Orange
-    critical: "#f44336", // Red
-  };
-
-  const mapExecutionLocation = {
-    remote: "Remoto",
-    office: "Escritório",
-    client_site: "Do lado do cliente",
-    hybrid: "Híbrido",
-  };
-
-  const mapPriority = {
-    low: "Baixa",
-    high: "Alta",
-    critical: "Crítica",
-  };
-
-  const truncateText = (text, maxLength) => {
-    return text?.length > maxLength
-      ? `${text.substring(0, maxLength)}...`
-      : text;
-  };
-
   return (
     <Card
       sx={{
@@ -49,8 +26,8 @@ const TaskCard = ({ task, onClickEvent }) => {
           filter: "brightness(95%)",
         },
         "&:active": {
-          top: '1px'
-        }
+          top: "1px",
+        },
       }}
       onClick={() => onClickEvent(task)}
     >

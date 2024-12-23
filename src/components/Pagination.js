@@ -8,15 +8,15 @@ const PaginatedComponent = ({ totalItems, itemsPerPage, onPageChange }) => {
     setCurrentPage(page);
     onPageChange(page);
   };
-
+  
   const totalPages = Math.ceil(totalItems / itemsPerPage);
 
   return (
     <Box
       sx={{
         display: "flex",
-        justifyContent: "center", // Centraliza horizontalmente
-        marginTop: 2, // Adiciona um pouco de espaçamento acima
+        justifyContent: "center",
+        marginTop: 2,
       }}
     >
 

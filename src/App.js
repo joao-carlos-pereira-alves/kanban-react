@@ -1,78 +1,17 @@
-import React, { useState, useEffect } from "react";
-import { useQuery } from "@apollo/client";
-import { GET_TASKS } from "./api/tasksApi";
+import React from "react";
+import useTasks from "./hooks/useTasks";
 import Header from "./components/Header";
 import KanbanBoard from "./components/KanbanBoard";
 import { Box, Typography } from "@mui/material";
 
 const App = () => {
-  const [pagination, setPagination] = useState({
-    page: 1,
-    pageSize: 5,
-    totalItems: 0,
-  });
-  const { loading, error, data, refetch } = useQuery(GET_TASKS, {
-    variables: { pageSize: 5, page: 1 },
-  });
-
-  const [tasks, setTasks] = useState([]);
-  const [filters, setFilters] = useState({
-    status: "",
-    priority: "",
-    name: "",
-    executionLocation: "",
-    executionDate: "",
-  });
-  const [debounceTimer, setDebounceTimer] = useState(null);
-
-  // Atualiza o estado de tasks quando os dados do GraphQL mudam
-  useEffect(() => {
-    if (data) {
-      if (data?.tasks?.tasks) setTasks(data.tasks.tasks);
-      if (data?.tasks?.pagination) setPagination(data.tasks.pagination);
-    }
-  }, [data]);
-
-  const handlePageChange = (page) => {
-    if (debounceTimer) {
-      clearTimeout(debounceTimer);
-    }
-
-    const timer = setTimeout(() => {
-      const filtersToSend = Object.fromEntries(
-        Object.entries(filters).filter(([key, value]) => value && value !== "")
-      );
-
-      filtersToSend.page = page;
-      filtersToSend.pageSize = 5;
-
-      refetch(filtersToSend);
-    }, 500);
-
-    setDebounceTimer(timer);
-  };
-
-  // Função para aplicar os filtros
-  const handleFilterChange = (newFilters) => {
-    setFilters(newFilters);
-
-    if (debounceTimer) {
-      clearTimeout(debounceTimer);
-    }
-
-    const timer = setTimeout(() => {
-      refetch({
-        priority: newFilters.priority,
-        executionLocation: newFilters.location,
-        executionDate: newFilters.date,
-        searchText: newFilters.query,
-        page: pagination.page,
-        pageSize: pagination.perPage,
-      });
-    }, 500);
-
-    setDebounceTimer(timer);
-  };
+  const {
+    tasks,
+    pagination,
+    loading,
+    handlePageChange,
+    handleFilterChange,
+  } = useTasks();
 
   return (
     <div>

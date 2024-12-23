@@ -22,49 +22,19 @@ import PriorityHighIcon from "@mui/icons-material/PriorityHigh";
 import DoneIcon from "@mui/icons-material/Done";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { downloadFile } from "../api/downloadFile";
+import {
+  priorityColors as getPriorityColor, 
+  mapPriority as getPriorityLabel, 
+  mapExecutionLocation as getExecutionLocationLabel, 
+  getStatusLabel,
+  taskDetailsStyle as style
+} from "../utils/mappings";
 
 const TaskDetailsModal = ({ open, onClose, task, onBack }) => {
-  const style = {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    width: 600,
-    bgcolor: "background.paper",
-    borderRadius: 2,
-    boxShadow: 24,
-    p: 4,
-  };
-
-  const priorityColors = {
-    low: "#4caf50", // Green
-    high: "#ff9800", // Orange
-    critical: "#f44336", // Red
-  };
-
-  const mapExecutionLocation = {
-    remote: "Remoto",
-    office: "Escritório",
-    client_site: "Do lado do cliente",
-    hybrid: "Híbrido",
-  };
-
-  const mapPriority = {
-    low: "Baixa",
-    high: "Alta",
-    critical: "Crítica",
-  };
-
-  const mapStatus = {
-    to_do: "A Fazer",
-    in_progress: "Em Andamento",
-    finished: "Concluído",
-  };
-
   return (
     <Modal open={open} onClose={onClose}>
       <Box sx={style}>
-        <AppBar position="static" sx={{ backgroundColor: priorityColors[task?.priority] }}>
+        <AppBar position="static" sx={{ backgroundColor: getPriorityColor[task?.priority] }}>
           <Toolbar>
             <Tooltip title="Voltar" arrow>
               <IconButton edge="start" color="inherit" onClick={onBack} aria-label="back">
@@ -84,11 +54,11 @@ const TaskDetailsModal = ({ open, onClose, task, onBack }) => {
 
         <Stack direction="row" spacing={2} sx={{ marginBottom: 2 }}>
           <Chip
-            label={`Prioridade: ${mapPriority[task?.priority] || "N/A"}`}
+            label={`Prioridade: ${getPriorityLabel[task?.priority] || "N/A"}`}
             icon={<PriorityHighIcon />}
           />
           <Chip
-            label={`Status: ${mapStatus[task?.status] || "N/A"}`}
+            label={`Status: ${getStatusLabel[task?.status] || "N/A"}`}
             icon={<DoneIcon />}
           />
         </Stack>
@@ -105,7 +75,7 @@ const TaskDetailsModal = ({ open, onClose, task, onBack }) => {
             Local de Execução
           </Typography>
           <Typography variant="subtitle1">
-            {mapExecutionLocation[task?.executionLocation] || "N/A"}
+            {getExecutionLocationLabel[task?.executionLocation] || "N/A"}
           </Typography>
         </Box>
 

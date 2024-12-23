@@ -16,6 +16,7 @@ const Filter = ({ onSearch }) => {
     setDate('');
     setLocation('');
     setPriority('');
+    handleSubmit()
   }
 
   return (
